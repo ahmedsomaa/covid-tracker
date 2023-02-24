@@ -98,6 +98,7 @@ export default function CovidCheckPage() {
           <div className='grid gap-6 mb-6 md:grid-cols-2' id='toggle'>
             <ToggleSwitch
               id='fatigue'
+              color='success'
               label='Fatigue'
               checked={form.fatigue}
               onChange={(checked) => onToggleSwitch(checked, 'fatigue')}
@@ -105,6 +106,7 @@ export default function CovidCheckPage() {
             <ToggleSwitch
               id='cough'
               label='Cough'
+              color='success'
               checked={form.cough}
               onChange={(checked) => onToggleSwitch(checked, 'cough')}
             />
@@ -112,12 +114,14 @@ export default function CovidCheckPage() {
           <div className='grid gap-6 mb-6 md:grid-cols-2' id='toggle'>
             <ToggleSwitch
               id='sore'
+              color='success'
               label='Sore Throat'
               checked={form.sore}
               onChange={(checked) => onToggleSwitch(checked, 'sore')}
             />
             <ToggleSwitch
               id='headaches'
+              color='success'
               label='Headaches'
               checked={form.headaches}
               onChange={(checked) => onToggleSwitch(checked, 'headaches')}
@@ -126,12 +130,14 @@ export default function CovidCheckPage() {
           <div className='grid gap-6 mb-6 md:grid-cols-2' id='toggle'>
             <ToggleSwitch
               id='nose'
+              color='success'
               label='Stuffy Nose'
               checked={form.nose}
               onChange={(checked) => onToggleSwitch(checked, 'nose')}
             />
             <ToggleSwitch
               id='breath'
+              color='success'
               checked={form.breath}
               label='Shortness of Breath'
               onChange={(checked) => onToggleSwitch(checked, 'breath')}
@@ -140,12 +146,14 @@ export default function CovidCheckPage() {
           <div className='grid gap-6 mb-6 md:grid-cols-2' id='toggle'>
             <ToggleSwitch
               id='body'
+              color='success'
               label='Body Aches'
               checked={form.body}
               onChange={(checked) => onToggleSwitch(checked, 'body')}
             />
             <ToggleSwitch
               id='smell'
+              color='success'
               checked={form.smell}
               label='Loss of Taste of Smell'
               onChange={(checked) => onToggleSwitch(checked, 'smell')}
@@ -154,12 +162,14 @@ export default function CovidCheckPage() {
           <div className='grid gap-6 mb-6 md:grid-cols-2' id='toggle'>
             <ToggleSwitch
               id='sneeze'
+              color='success'
               label='Sneezing'
               checked={form.sneeze}
               onChange={(checked) => onToggleSwitch(checked, 'sneeze')}
             />
             <ToggleSwitch
               id='itchy'
+              color='success'
               checked={form.itchy}
               label='Itchy or Watery Eyes'
               onChange={(checked) => onToggleSwitch(checked, 'itchy')}
