@@ -23,5 +23,5 @@ function HomePage() {
 }
 
 export default withAuthenticationRequired(HomePage, {
-  onRedirecting: () => <Redirect message="We're redictring you" />
+  onRedirecting: () => <Redirect message="We're redirecting you to authentication" />
 });
