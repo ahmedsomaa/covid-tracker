@@ -22,7 +22,7 @@ export default function LandingPage() {
                 <p className='font-serif text-sm'>A great tool for tracking covid patients</p>
               </div>
               {/* Login button */}
-              <Button pill fullSized color='success' className='font-serif text-lg' onClick={handleLogin}>
+              <Button fullSized color='success' className='font-serif text-lg' onClick={handleLogin}>
                 Login
               </Button>
             </div>
