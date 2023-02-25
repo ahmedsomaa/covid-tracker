@@ -1,0 +1,15 @@
+# Directories
+dist/*
+node_modules
+
+# Ignore artifacts:
+build
+coverage
+
+# Files
+.gitignore
+.prettierignore
+package-lock.json
+**/.git
+**/.svn
+**/.hg
