@@ -38,7 +38,7 @@ class Logger {
 
   constructor() {
     const prodTransport = new winston.transports.File({
-      filename: 'logs/error.log',
+      filename: 'logs.log',
       level: 'error'
     });
 
