@@ -8,6 +8,7 @@
     "clean": "rm -rf dist",
     "build": "npm run transpile",
     "start": "node dist/index.js",
+    "deploy": "npm run build && chmod +x bin/deploy.sh && bin/deploy.sh",
     "prebuild": "npm run clean",
     "transpile": "npx babel ./src --out-dir dist",
     "test": "echo \"Error: no test specified\" && exit 1"
