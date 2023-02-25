@@ -10,17 +10,6 @@ jobs:
           node-version: '16.17.1'
       - checkout
       - run:
-          name: Install Vercel CLI
-          command: |
-            echo "NODE --version" 
-            echo $(node --version)
-            echo "NPM --version" 
-            echo $(npm --version)
-            echo "Install vercel cli"
-            npm i -g vercel
-            echo "Vercel --version"
-            echo $(vercel --version)
-      - run:
           name: Install Client Dependecies
           command: |
             echo "Install client dependecies"
