@@ -86,7 +86,7 @@ export default function CovidCheckPage() {
               <XMark className='h-5 w-5' />
             </div>
           )}
-          <div className='ml-3 text-sm font-normal'>{req.toast.split(',')[1]}</div>
+          <div className='font-serif ml-3 text-sm font-normal'>{req.toast.split(',')[1]}</div>
           <Toast.Toggle />
         </Toast>
       )}
