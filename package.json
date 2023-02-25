@@ -5,6 +5,7 @@
     "client:deploy": "cd client && npm run deploy",
     "server:deploy": "cd server && npm run deploy",
     "client:install": "cd client && npm install",
-    "server:install": "cd server && npm install"
+    "server:install": "cd server && npm install",
+    "deploy": "npm run server:deploy && npm run client:deploy"
   }
 }
