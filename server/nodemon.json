@@ -1,0 +1,6 @@
+{
+  "watch": ["src"],
+  "ext": ".js",
+  "ignore": [],
+  "exec": "babel-node src/index.js"
+}
