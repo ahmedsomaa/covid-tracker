@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "nodemon",
+    "test": "jest",
     "clean": "rm -rf dist",
     "build": "npm run transpile && npm run logs",
     "start": "node dist/index.js",
@@ -12,8 +13,7 @@
     "prebuild": "npm run clean",
     "logs": "cd dist && touch logs.log",
     "predeploy": "npm install && npm run build",
-    "transpile": "npx babel ./src --out-dir dist",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "transpile": "npx babel ./src --out-dir dist"
   },
   "keywords": [
     "node",
@@ -39,6 +39,8 @@
     "@babel/core": "^7.21.0",
     "@babel/node": "^7.20.7",
     "@babel/preset-env": "^7.20.2",
-    "nodemon": "^2.0.20"
+    "jest": "^29.4.3",
+    "nodemon": "^2.0.20",
+    "supertest": "^6.3.3"
   }
 }
