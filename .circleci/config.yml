@@ -1,7 +1,6 @@
 version: 2.1
 orbs:
   node: circleci/node@5.1
-  heroku: circleci/heroku@2.0
 jobs:
   build:
     docker:
@@ -27,7 +26,17 @@ jobs:
             echo "Install client dependecies"
             npm run client:install
       - run:
-          name: Build client
+          name: Install Server Dependecies
+          command: |
+            echo "Install server dependecies"
+            npm run server:install
+      - run:
+          name: Build Client App
           command: |
             echo "Build client app"
             npm run client:build
+      - run:
+          name: Build Server App
+          command: |
+            echo "Build server app"
+            npm run server:build
