@@ -40,3 +40,14 @@ jobs:
           command: |
             echo "Build server app"
             npm run server:build
+  deploy:
+    docker:
+      - image: 'cimg/node:16.17.1'
+    steps:
+      - node/install:
+          node-version: '16.17.1'
+      - checkout
+      - run:
+          name: Add Server Environment variables
+          command: |
+            echo $(vercel --version)
