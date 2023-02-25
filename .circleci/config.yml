@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   node: circleci/node@5.1
 jobs:
-  build:
+  build and deploy pipeline:
     docker:
       - image: 'cimg/node:16.17.1'
     steps:
@@ -40,18 +40,6 @@ jobs:
           command: |
             echo "Build server app"
             npm run server:build
-  deploy:
-    docker:
-      - image: 'cimg/node:16.17.1'
-    steps:
-      - node/install:
-          node-version: '16.17.1'
-      - checkout
-      - run:
-          name: Install Server Dependecies
-          command: |
-            echo "Install server dependecies"
-            npm run server:install
       - run:
           name: Deploy Server App
           command: |
@@ -62,10 +50,3 @@ jobs:
           command: |
             echo "Deploy client app"
             npm run client:deploy
-workflows:
-  covid-tracker:
-    jobs:
-      - build
-      - deploy:
-          requires:
-            - build
