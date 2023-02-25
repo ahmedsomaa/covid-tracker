@@ -7,7 +7,7 @@
     "dev": "nodemon",
     "clean": "rm -rf dist",
     "build": "npm run transpile && npm run logs",
-    "start": "node index.js",
+    "start": "node dist/index.js",
     "deploy": "chmod +x bin/deploy.sh && bin/deploy.sh",
     "prebuild": "npm run clean",
     "logs": "cd dist && touch logs.log",
