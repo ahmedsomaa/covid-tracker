@@ -48,6 +48,11 @@ jobs:
           node-version: '16.17.1'
       - checkout
       - run:
+          name: Install Server Dependecies
+          command: |
+            echo "Install server dependecies"
+            npm run server:install
+      - run:
           name: Deploy Server App
           command: |
             echo "Deploy server app"
