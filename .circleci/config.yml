@@ -51,3 +51,9 @@ jobs:
           name: Add Server Environment variables
           command: |
             echo $(vercel --version)
+            echo $(VERCEL_TOKEN)
+workflows:
+  covid-tracker:
+    jobs:
+      - build
+      - deploy
