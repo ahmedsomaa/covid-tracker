@@ -44,10 +44,10 @@ jobs:
             echo "Vercel --version"
             echo $(vercel --version)
       - run:
-          name: Deploy Fullstack App
+          name: Deploy Client App to Vercel
           command: |
-            echo "Deploy fullstack app"
-            npm run deploy
+            echo "Deploy client app to vercel"
+            npm run client:deploy
 workflows:
   version: 2
   build_and_deploy:
