@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "npm run build && chmod +x bin/deploy.sh && bin/deploy.sh"
+    "deploy": "chmod +x bin/deploy.sh && bin/deploy.sh"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.0.1",
