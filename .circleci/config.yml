@@ -5,7 +5,6 @@ jobs:
   build:
     docker:
       - image: 'cimg/node:16.17.1'
-    working_directory: ~/covid-tracker
     steps:
       - node/install:
           node-version: '16.17.1'
@@ -33,7 +32,6 @@ jobs:
   deploy:
     docker:
       - image: 'cimg/node:16.17.1'
-    working_directory: ~/covid-tracker
     steps:
       - node/install:
           node-version: '16.17.1'
