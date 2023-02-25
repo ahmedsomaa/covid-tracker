@@ -52,3 +52,5 @@ process.on('uncaughtException', (error) => {
 app.listen(config.port, () =>
   logger.info(`Server started listening at http://localhost:${config.port}`)
 );
+
+export default app;
