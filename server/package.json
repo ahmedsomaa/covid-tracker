@@ -10,7 +10,7 @@
     "build": "npm run transpile && npm run logs",
     "start": "node dist/index.js",
     "deploy": "chmod +x bin/deploy.sh && bin/deploy.sh",
-    "prebuild": "npm run clean",
+    "prebuild": "npm run test && npm run clean",
     "logs": "cd dist && touch logs.log",
     "predeploy": "npm install && npm run build",
     "transpile": "npx babel ./src --out-dir dist"
