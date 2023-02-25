@@ -48,12 +48,19 @@ jobs:
           node-version: '16.17.1'
       - checkout
       - run:
-          name: Add Server Environment variables
+          name: Deploy Server App
           command: |
-            echo $(vercel --version)
-            echo $(VERCEL_TOKEN)
+            echo "Deploy server app"
+            npm run server:deploy
+      - run:
+          name: Deploy client App
+          command: |
+            echo "Deploy client app"
+            npm run client:deploy
 workflows:
   covid-tracker:
     jobs:
       - build
-      - deploy
+      - deploy:
+          requires:
+            - build
