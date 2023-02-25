@@ -11,7 +11,7 @@
     "deploy": "chmod +x bin/deploy.sh && bin/deploy.sh",
     "prebuild": "npm run clean",
     "logs": "cd dist && touch logs.log",
-    "predeploy": "npm install && npm run prepare && npm run build",
+    "predeploy": "npm install && npm run build",
     "transpile": "npx babel ./src --out-dir dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
