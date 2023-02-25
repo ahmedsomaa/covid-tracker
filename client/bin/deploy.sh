@@ -12,4 +12,4 @@ echo $VITE_AUTH0_API_AUDIENCE | vercel env add VITE_AUTH0_API_AUDIENCE productio
 
 # deploy to project
 echo "Deploying client app"
-vercel deploy dist/ --token=$VERCEL_TOKEN --prod
+cd dist/ && vercel deploy --token=$VERCEL_TOKEN --prod
