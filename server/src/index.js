@@ -40,9 +40,13 @@ app.use(routes);
 // error handler for operational errors
 app.use(errorHandler);
 
+process.on('uncaughtRejection', (error) => {
+  logger.error('unhandledRejections', error);
+});
+
 // error handler for uncaught exceptions
 process.on('uncaughtException', (error) => {
-  logger.info(error);
+  logger.error('uncaughtException', error);
 });
 
 app.listen(config.port, () =>
