@@ -2,7 +2,7 @@ echo "Deploying server app"
 
 # link app to vercel project
 echo "Link app to vercel project"
-vercel link dist/ --token=$VERCEL_TOKEN --project=$VERCEL_SERVER_PROJECT --scope=$VERCEL_SCOPE --yes
+vercel link --token=$VERCEL_TOKEN --project=$VERCEL_SERVER_PROJECT --scope=$VERCEL_SCOPE --yes
 
 # set application env variables
 echo "Add app env variables"

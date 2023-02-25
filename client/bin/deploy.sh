@@ -2,7 +2,7 @@ echo "Deploying client app"
 
 # link project to vercel 
 echo "Link app to vercel project"
-vercel link dist/ --token=$VERCEL_TOKEN --project=$VERCEL_CLIENT_PROJECT --scope=$VERCEL_SCOPE --yes
+vercel link --token=$VERCEL_TOKEN --project=$VERCEL_CLIENT_PROJECT --scope=$VERCEL_SCOPE --yes
 
 # set application env variables
 vercel env add VITE_BASE_URL=$VITE_BASE_URL --token=$VERCEL_TOKEN --scope=$VERCEL_SCOPE --yes
