@@ -8,9 +8,8 @@
     "clean": "rm -rf dist",
     "build": "npm run transpile",
     "start": "node dist/index.js",
-    "prestart": "npm run build",
     "prebuild": "npm run clean",
-    "transpile": "babel ./src --out-dir dist",
+    "transpile": "npx babel ./src --out-dir dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -33,6 +32,7 @@
     "winston": "^3.8.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.21.0",
     "@babel/core": "^7.21.0",
     "@babel/node": "^7.20.7",
     "@babel/preset-env": "^7.20.2",
