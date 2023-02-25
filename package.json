@@ -2,6 +2,8 @@
   "scripts": {
     "client:build": "cd client && npm run build",
     "server:build": "cd server && npm run build",
+    "client:deploy": "cd client && npm run deploy",
+    "server:deploy": "cd server && npm run deploy",
     "client:install": "cd client && npm install",
     "server:install": "cd server && npm install"
   }
