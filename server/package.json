@@ -6,11 +6,11 @@
   "scripts": {
     "dev": "nodemon",
     "clean": "rm -rf dist",
-    "build": "npm run transpile && npm run config",
+    "build": "npm run transpile && npm run logs",
     "start": "node index.js",
     "deploy": "chmod +x bin/deploy.sh && bin/deploy.sh",
     "prebuild": "npm run clean",
-    "config": "cp vercel.json package.json dist && cd dist && touch logs.log",
+    "logs": "cd dist && touch logs.log",
     "predeploy": "npm install && npm run prepare && npm run build",
     "transpile": "npx babel ./src --out-dir dist",
     "test": "echo \"Error: no test specified\" && exit 1"
