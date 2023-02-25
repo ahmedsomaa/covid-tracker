@@ -1,42 +1,29 @@
 import config from '../config';
+import httpClient from '../utils/http';
 
-const BASE_URL = `https://${config.domain}/api/v2`;
+const AUTH0_BASE_URL = `https://${config.domain}/api/v2`;
 
 // ------ Users Endpoints
 // GET /users/userId
-const getCurrentUser = async (token, userId) => {
-  try {
-    const resp = await fetch(`${BASE_URL}/users/${userId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-    return resp.ok ? await resp.json() : null;
-  } catch (error) {
-    return error;
-  }
-};
+const getCurrentUser = (token, userId) =>
+  httpClient(`${AUTH0_BASE_URL}/users/${userId}`, {
+    method: 'GET',
+    requestHeaders: { Authorization: `Bearer ${token}` }
+  });
 
 // PATCH /users/userId
-const updateCurrentUser = async (token, userId, user) => {
-  try {
-    const resp = await fetch(`${BASE_URL}/users/${userId}`, {
-      method: 'PATCH',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ ...user })
-    });
-    return resp.ok ? await resp.json() : null;
-  } catch (error) {
-    return error;
-  }
-};
+const updateCurrentUser = async (token, userId, user) =>
+  httpClient(`${AUTH0_BASE_URL}/users/${userId}`, {
+    body: user,
+    method: 'PATCH',
+    requestHeaders: { Authorization: `Bearer ${token}` }
+  });
 
-// ------ Data Endpoints
-// GET /patients
+// ------ Records Endpoints
+// GET /records
+const getAllRecords = () => httpClient(`${config.baseUrl}/records`, { method: 'GET' });
 
 // POST /patients
+const createRecord = (record) => httpClient(`${config.baseUrl}/records`, { method: 'POST', body: record });
 
-export { getCurrentUser, updateCurrentUser };
+export { getCurrentUser, updateCurrentUser, getAllRecords, createRecord };
