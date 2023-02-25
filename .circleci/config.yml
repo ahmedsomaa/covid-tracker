@@ -48,10 +48,12 @@ jobs:
           node-version: '16.17.1'
       - checkout
       - run:
-          name: Install Server Dependecies
+          name: Install Vercel CLI
           command: |
-            echo "Install server dependecies"
-            npm run server:install
+            echo "Install vercel cli"
+            npm i -g vercel
+            echo "Vercel --version"
+            echo $(vercel --version)
       - run:
           name: Deploy Server App
           command: |
