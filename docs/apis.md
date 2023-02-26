@@ -21,22 +21,19 @@ This file acts as documentation for the API endpoints and database schema.
     ```json
     [
       {
-        "id": "63fa03970da290a901b89d1c",
-        "patientId": "auth0|123",
-        "coords": [31.0162027, 30.7763717],
-        "infected": true
+        "iso3": "GBR",
+        "temperature": 38.5,
+        "cases": 1
       },
       {
-        "id": "63fa7e6c81e36ee8e5c7a211",
-        "patientId": "auth0|122",
-        "coords": [31.0161863, 30.7763571],
-        "infected": true
+        "iso3": "EGY",
+        "temperature": 39.67,
+        "cases": 3
       },
       {
-        "id": "63fa7ee581e36ee8e5c7a217",
-        "patientId": "auth0|121",
-        "coords": [31.0161621, 30.77632],
-        "infected": false
+        "iso3": "LBY",
+        "temperature": 40.25,
+        "cases": 2
       }
     ]
     ```
