@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import config from './config';
+import { Flowbite } from 'flowbite-react';
+import 'react-tooltip/dist/react-tooltip.css';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { BrowserRouter, useNavigate } from 'react-router-dom';
-import { Flowbite } from 'flowbite-react';
 
 const { domain, audience, clientId, redirectUri } = config;
 
@@ -14,7 +15,7 @@ const Auth0ProviderWithRouter = ({ children }) => {
 
   const onRedirectCallback = (appState) => navigate(appState?.returnTo || window.location.pathname);
 
-  if (!(domain && clientId && redirectUri)) {
+  if (!(domain && clientId && redirectUri && audience)) {
     return null;
   }
 
