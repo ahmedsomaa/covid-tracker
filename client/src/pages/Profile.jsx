@@ -80,7 +80,7 @@ export default function ProfilePage() {
               <Button type='submit' color='success' disabled={updating}>
                 {!updating ? 'Update' : 'Updating...'}
               </Button>
-              <Button type='button' color='gray' disabled={updating} onClick={onCancel}>
+              <Button type='button' color='light' disabled={updating} onClick={onCancel}>
                 Cancel
               </Button>
             </div>

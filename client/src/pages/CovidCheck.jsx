@@ -206,7 +206,7 @@ export default function CovidCheckPage() {
             <Button type='submit' color='success' disabled={req.load}>
               {!req.load ? 'Check' : 'Checking...'}
             </Button>
-            <Button type='button' color='gray' onClick={onCancel} disabled={req.load}>
+            <Button type='button' color='light' onClick={onCancel} disabled={req.load}>
               Cancel
             </Button>
           </div>
