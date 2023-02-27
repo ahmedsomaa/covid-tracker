@@ -39,8 +39,8 @@ const findAll = async (_request, response, next) => {
         }
       }
     ]);
-    records[0].data.sort((a, b) => a._id - b._id);
-    records[0].total.sort((a, b) => a._id - b._id);
+    records[0].data.sort((a, b) => a._id.localeCompare(b._id));
+    records[0].total.sort((a, b) => a._id.localeCompare(b._id));
     response.status(200).json(
       records.map(({ total, data }) =>
         data.map((d, index) => ({
