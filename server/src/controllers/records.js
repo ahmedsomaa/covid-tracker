@@ -7,29 +7,51 @@ const findAll = async (_request, response, next) => {
   try {
     const records = await Record.aggregate([
       {
-        $match: {
-          infected: {
-            $eq: true
-          }
-        }
-      },
-      {
-        $group: {
-          _id: '$countryCode',
-          cases: { $sum: 1 },
-          temperature: { $avg: '$temperature' }
+        $facet: {
+          total: [
+            {
+              $group: {
+                _id: '$countryCode',
+                count: {
+                  $count: {}
+                }
+              }
+            }
+          ],
+          data: [
+            {
+              $match: {
+                infected: true
+              }
+            },
+            {
+              $group: {
+                _id: '$countryCode',
+                cases: {
+                  $sum: 1
+                },
+                temperature: {
+                  $avg: '$temperature'
+                }
+              }
+            }
+          ]
         }
       }
     ]);
-    response
-      .status(200)
-      .json(
-        records.map(({ _id, temperature, ...rest }) => ({
-          iso3: _id,
-          temperature: parseFloat(temperature.toFixed(2)),
-          ...rest
+    records[0].data.sort((a, b) => a._id - b._id);
+    records[0].total.sort((a, b) => a._id - b._id);
+    response.status(200).json(
+      records.map(({ total, data }) =>
+        data.map((d, index) => ({
+          iso3: d._id,
+          cases: d.cases,
+          total: total[index].count,
+          temperature: parseFloat(d.temperature.toFixed(2)),
+          spreadRate: parseFloat(d.cases / total[index].count)
         }))
-      );
+      )[0]
+    );
   } catch (error) {
     next(error);
   }
@@ -44,8 +66,8 @@ const create = async (request, response, next) => {
       location,
       temperature,
       symptomps,
-      countryCode: iso1A3Code([lng, lat]) || 'NA',
-      infected: hasCovid(temperature, symptomps)
+      infected: hasCovid(temperature, symptomps),
+      countryCode: iso1A3Code([lng, lat]) || 'NA'
     });
     const created = await newRecord.save();
     response.status(200).json(created);
