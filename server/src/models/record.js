@@ -18,8 +18,8 @@ const recordSchema = new mongoose.Schema(
       breath: { type: Boolean, required: true },
       body: { type: Boolean, required: true },
       smell: { type: Boolean, required: true },
-      sneeze: { type: Boolean, required: true },
-      itchy: { type: Boolean, required: true }
+      diarrhea: { type: Boolean, required: true },
+      vomiting: { type: Boolean, required: true }
     },
     infected: { type: Boolean, default: false, required: true }
   },
