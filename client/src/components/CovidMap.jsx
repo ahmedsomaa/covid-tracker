@@ -5,7 +5,7 @@ import { scaleLinear } from 'd3-scale';
 import { ComposableMap, Geographies, Geography, Sphere, Graticule } from 'react-simple-maps';
 
 export default function CovidMap({ data, geoUrl, setTooltipContent }) {
-  const colorScale = scaleLinear().domain([0, 1]).range(['#fca5a5', '#991b1b']);
+  const colorScale = scaleLinear().domain([0, 1]).range(['#fee2e2', '#7f1d1d']);
 
   return (
     <>
