@@ -24,8 +24,8 @@ export default function CovidCheckPage() {
     breath: false,
     body: false,
     smell: false,
-    sneeze: false,
-    itchy: false
+    diarrhea: false,
+    vomiting: false
   });
 
   // ------ hooks
@@ -187,18 +187,18 @@ export default function CovidCheckPage() {
           </div>
           <div className='grid gap-6 mb-6 md:grid-cols-2' id='toggle'>
             <ToggleSwitch
-              id='sneeze'
+              id='diarrhea'
               color='success'
-              label='Sneezing'
-              checked={form.sneeze}
-              onChange={(checked) => onToggleSwitch(checked, 'sneeze')}
+              label='Diarrhea'
+              checked={form.diarrhea}
+              onChange={(checked) => onToggleSwitch(checked, 'diarrhea')}
             />
             <ToggleSwitch
-              id='itchy'
+              id='vomiting'
               color='success'
-              checked={form.itchy}
-              label='Itchy or Watery Eyes'
-              onChange={(checked) => onToggleSwitch(checked, 'itchy')}
+              label='Vomiting'
+              checked={form.vomiting}
+              onChange={(checked) => onToggleSwitch(checked, 'vomiting')}
             />
           </div>
           <hr />
