@@ -16,7 +16,7 @@ export default function DashboardPage() {
   });
 
   React.useEffect(() => {
-    setRequest({ ...request, isLoading: false });
+    setRequest({ ...request, isLoading: true });
     getAllRecords().then(
       (data) => setRequest({ ...request, data }),
       (error) => setRequest({ ...request, error })
