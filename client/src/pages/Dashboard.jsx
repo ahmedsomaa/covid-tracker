@@ -1,48 +1,70 @@
 import React from 'react';
 import config from '../config';
-import { Alert, Card } from 'flowbite-react';
+import Cookies from 'universal-cookie';
 import { getAllRecords } from '../api';
+import ArrowPath from '../icons/ArrowPath';
 import CovidMap from '../components/CovidMap';
 import Redirect from '../components/Redirect';
 import Title from '../components/Typography/Title';
+import { Alert, Button, Card } from 'flowbite-react';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
-import { Navigate } from 'react-router-dom';
+
+// ------ cookies object
+const cookies = new Cookies();
 
 export default function DashboardPage() {
   const [tooltipContent, setTooltipContent] = React.useState(null);
-  const [request, setRequest] = React.useState({
+  const [event, updateEvent] = React.useReducer((prev, next) => ({ ...prev, ...next }), {
     data: [],
     error: '',
     isLoading: false
   });
 
+  // ------ hooks
   React.useEffect(() => {
-    setRequest({ ...request, isLoading: true });
-    getAllRecords().then(
-      (data) => setRequest({ ...request, data }),
-      (error) => setRequest({ ...request, error })
-    );
-    setRequest({ ...request, isLoading: false });
-  }, []);
+    getRecords();
+  }, [updateEvent]);
 
-  if (request.error) {
+  const getRecords = () => {
+    const token = cookies.get('jwt');
+    if (token) {
+      updateEvent({ isLoading: true });
+      getAllRecords(token).then(
+        (data) => updateEvent({ isLoading: false, data }),
+        (error) => updateEvent({ isLoading: false, error })
+      );
+    }
+  };
+
+  /// ------ handle error state
+  if (event.error) {
     return (
       <>
-        <Title className='font-poppins'></Title>
-        <Alert color='failure'>{request.error}</Alert>
+        <Title className='font-poppins'>Dashboard</Title>
+        <Alert color='failure' className='font-serif' withBorderAccent={true}>
+          <p>{event.error.message}</p>
+        </Alert>
       </>
     );
   }
 
-  if (request.isLoading) {
-    return <Redirect message='Please wait while we fetch the records' />;
+  // ------ handle loading state
+  if (event.isLoading) {
+    return <Redirect message='Wait while we load covid data records...' />;
   }
 
+  // ------ handle normal state
   return (
     <>
       <Title className='font-poppins'>Dashboard</Title>
       <Card className='font-serif flex flex-col w-full py-2 px-4 shadow-none'>
-        <CovidMap geoUrl={config.mapGeoUrl} data={request.data} setTooltipContent={setTooltipContent} />
+        <div className='w-25 flex flex-row justify-end'>
+          <Button color='success' onClick={getRecords}>
+            <ArrowPath className='mr-2 h-5 w-5' />
+            Refresh
+          </Button>
+        </div>
+        <CovidMap geoUrl={config.mapGeoUrl} data={event.data} setTooltipContent={setTooltipContent} />
         {tooltipContent && (
           <ReactTooltip anchorSelect='.map-tooltip' place='top'>
             {tooltipContent}
