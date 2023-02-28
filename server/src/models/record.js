@@ -4,11 +4,11 @@ const recordSchema = new mongoose.Schema(
   {
     patientId: { type: String, required: true },
     location: {
-      lat: { type: Number, required: true },
-      lng: { type: Number, required: true }
+      lat: { type: Number, required: true, min: -90, max: 90 },
+      lng: { type: Number, required: true, min: -180, max: 180 }
     },
     countryCode: { type: String, required: true },
-    temperature: { type: Number, required: true },
+    temperature: { type: Number, required: true, min: 9, max: 42 },
     symptomps: {
       fatigue: { type: Boolean, required: true },
       cough: { type: Boolean, required: true },
