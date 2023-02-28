@@ -1,12 +1,27 @@
 import React from 'react';
 import useUser from '../hooks/useUser';
+import { Alert } from 'flowbite-react';
 import NavBar from '../components/NavBar';
 import { Outlet } from 'react-router-dom';
 import Redirect from '../components/Redirect';
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 
 function HomePage() {
-  const { data } = useUser();
+  const { isLoading, data, error } = useUser();
+
+  if (error) {
+    return (
+      <>
+        <Alert color='failure'>
+          <span>{error}</span>
+        </Alert>
+      </>
+    );
+  }
+
+  if (isLoading) {
+    return <Redirect message='Please, wait will redirect you in seconds' />;
+  }
 
   return (
     <div className='flex h-screen bg-gray-50 dark:bg-gray-900'>
