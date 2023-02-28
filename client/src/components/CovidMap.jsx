@@ -20,31 +20,29 @@ export default function CovidMap({ data, geoUrl, setTooltipContent }) {
       >
         <Sphere stroke='#475569' strokeWidth={0.5} />
         <Graticule stroke='#475569' strokeWidth={0.5} />
-        {data.length > 0 && (
-          <Geographies geography={geoUrl}>
-            {({ geographies }) =>
-              geographies.map((geo) => {
-                const record = data.find((s) => s.iso3 === geo.id);
-                return (
-                  <Geography
-                    geography={geo}
-                    key={geo.rsmKey}
-                    stroke='#475569'
-                    className='map-tooltip'
-                    onMouseEnter={() => {
-                      const message = record ? `: ${record.cases} infected cases out of ${record.total} reported` : '';
-                      setTooltipContent(`${geo.properties.name}${message}`);
-                    }}
-                    onMouseLeave={() => {
-                      setTooltipContent('');
-                    }}
-                    fill={record ? colorScale(record.spreadRate) : '#f8fafc'}
-                  />
-                );
-              })
-            }
-          </Geographies>
-        )}
+        <Geographies geography={geoUrl}>
+          {({ geographies }) =>
+            geographies.map((geo) => {
+              const record = data.length > 0 && data.find((s) => s.iso3 === geo.id);
+              return (
+                <Geography
+                  geography={geo}
+                  key={geo.rsmKey}
+                  stroke='#475569'
+                  className='map-tooltip'
+                  onMouseEnter={() => {
+                    const message = record ? `: ${record.cases} infected cases out of ${record.total} reported` : '';
+                    setTooltipContent(`${geo.properties.name}${message}`);
+                  }}
+                  onMouseLeave={() => {
+                    setTooltipContent('');
+                  }}
+                  fill={record ? colorScale(record.spreadRate) : '#f8fafc'}
+                />
+              );
+            })
+          }
+        </Geographies>
       </ComposableMap>
     </>
   );
