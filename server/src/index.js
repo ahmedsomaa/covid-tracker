@@ -20,7 +20,12 @@ app.use(morgan('common'));
 app.use(helmet());
 
 // cors
-app.use(cors());
+app.use(
+  cors({
+    origin: config.cors,
+    methods: ['GET', 'POST']
+  })
+);
 
 // use compression to compress all responses
 app.use(compression());
