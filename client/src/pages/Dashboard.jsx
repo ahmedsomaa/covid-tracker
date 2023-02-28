@@ -6,6 +6,7 @@ import CovidMap from '../components/CovidMap';
 import Redirect from '../components/Redirect';
 import Title from '../components/Typography/Title';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
+import { Navigate } from 'react-router-dom';
 
 export default function DashboardPage() {
   const [tooltipContent, setTooltipContent] = React.useState(null);
@@ -24,22 +25,25 @@ export default function DashboardPage() {
     setRequest({ ...request, isLoading: false });
   }, []);
 
+  if (request.error) {
+    return <Navigate to='/' replace />;
+  }
+
+  if (request.isLoading) {
+    return <Redirect message='Please wait while we fetch the records' />;
+  }
+
   return (
     <>
       <Title className='font-poppins'>Dashboard</Title>
-      {/* Map goes here */}
-      {request.isLoading ? (
-        <Redirect message='Please wait while we fetch the records' />
-      ) : (
-        <Card className='font-serif flex flex-col w-full py-2 px-4 shadow-none'>
-          <CovidMap geoUrl={config.mapGeoUrl} data={request.data} setTooltipContent={setTooltipContent} />
-          {tooltipContent && (
-            <ReactTooltip anchorSelect='.map-tooltip' place='top'>
-              {tooltipContent}
-            </ReactTooltip>
-          )}
-        </Card>
-      )}
+      <Card className='font-serif flex flex-col w-full py-2 px-4 shadow-none'>
+        <CovidMap geoUrl={config.mapGeoUrl} data={request.data} setTooltipContent={setTooltipContent} />
+        {tooltipContent && (
+          <ReactTooltip anchorSelect='.map-tooltip' place='top'>
+            {tooltipContent}
+          </ReactTooltip>
+        )}
+      </Card>
     </>
   );
 }
