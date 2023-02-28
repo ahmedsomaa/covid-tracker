@@ -1,20 +1,27 @@
 import React from 'react';
-import Check from '../icons/Check';
-import XMark from '../icons/XMark';
+import messages from '../constants';
 import { createRecord } from '../api';
+import Cookies from 'universal-cookie';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useNavigate } from 'react-router-dom';
 import Title from '../components/Typography/Title';
+import ToastResult from '../components/ToastResult';
 import Subtitle from '../components/Typography/Subtitle';
 import { Label, TextInput, Card, ToggleSwitch, Button, Toast } from 'flowbite-react';
+
+// ------ cookies object
+const cookies = new Cookies();
 
 export default function CovidCheckPage() {
   const { user } = useAuth0();
   const navigate = useNavigate();
   const latitudeRef = React.useRef();
   const longtiudeRef = React.useRef();
-  const [req, setReq] = React.useState({ toast: '', load: false });
-  const [form, setForm] = React.useState({
+  const [reqEvent, updateReqEvent] = React.useReducer((prev, next) => ({ ...prev, ...next }), {
+    toast: '',
+    isLoading: ''
+  });
+  const [form, updateForm] = React.useReducer((prev, next) => ({ ...prev, ...next }), {
     temperature: 28,
     fatigue: false,
     cough: false,
@@ -34,8 +41,10 @@ export default function CovidCheckPage() {
       // get current position
       navigator.geolocation.getCurrentPosition(({ coords: { longitude, latitude } }) => {
         // displau current position to user
-        latitudeRef.current.value = latitude;
-        longtiudeRef.current.value = longitude;
+        if (latitudeRef.current && longtiudeRef.current) {
+          latitudeRef.current.value = latitude;
+          longtiudeRef.current.value = longitude;
+        }
       });
     }
   }, []);
@@ -43,6 +52,9 @@ export default function CovidCheckPage() {
   // ------ handlers
   const onSubmit = (event) => {
     event.preventDefault();
+
+    // retrieve user token
+    const token = cookies.get('jwt');
 
     // prepare location
     const location = { lng: parseFloat(longtiudeRef.current.value), lat: parseFloat(latitudeRef.current.value) };
@@ -54,39 +66,38 @@ export default function CovidCheckPage() {
     const record = {
       patientId: user.sub,
       location,
-      temperature: parseInt(temperature),
+      temperature: parseFloat(temperature),
       symptomps
     };
 
     // call api service here
-    setReq({ ...req, load: true });
-    createRecord(record).then(
-      (_data) => setReq({ ...req, toast: 'INF,Successfully stored user record' }),
-      (_err) => setReq({ ...req, toast: 'ERR,Failed to store user record' })
+    updateReqEvent({ isLoading: true });
+    createRecord(token, record).then(
+      (data) =>
+        updateReqEvent({
+          isLoading: false,
+          toast: `INF,${data.infected ? messages.infected : messages.notInfected}`
+        }),
+      (_err) => updateReqEvent({ isLoading: false, toast: `ERR,${messages.checkError}` })
     );
-    setReq({ ...req, load: false });
   };
 
   const onCancel = () => navigate('/app/dashboard');
 
-  const onToggleSwitch = (checked, toggle) => setForm({ ...form, [toggle]: checked });
+  const onToggleSwitch = (checked, toggle) => updateForm({ [toggle]: checked });
 
+  // ------ handle normal state
   return (
     <>
       <Title>Covid Check</Title>
 
-      {req.toast && (
-        <Toast className='my-3'>
-          {req.toast.split(',')[0] === 'INF' ? (
-            <div className='inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-500 dark:bg-blue-800 dark:text-blue-200'>
-              <Check className='h-5 w-5' />
-            </div>
+      {reqEvent.toast && (
+        <Toast className='my-3 flex !items-start'>
+          {reqEvent.toast.split(',')[0] === 'INF' ? (
+            <ToastResult message={reqEvent.toast.split(',')[1]} />
           ) : (
-            <div className='inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-500 dark:bg-red-800 dark:text-red-200'>
-              <XMark className='h-5 w-5' />
-            </div>
+            <ToastResult success={false} message={reqEvent.toast.split(',')[1]} />
           )}
-          <div className='font-serif ml-3 text-sm font-normal'>{req.toast.split(',')[1]}</div>
           <Toast.Toggle />
         </Toast>
       )}
@@ -116,7 +127,7 @@ export default function CovidCheckPage() {
               id='temperature'
               value={form.temperature}
               placeholder='Enter your body temperature in celsius'
-              onChange={({ target }) => setForm({ ...form, temperature: target.value })}
+              onChange={({ target }) => updateForm({ temperature: target.value })}
               helperText='Note: Human beings can live with a temperature from 9 to 42 celsius.'
             />
           </div>
@@ -203,10 +214,10 @@ export default function CovidCheckPage() {
           </div>
           <hr />
           <div className='flex flex-row-reverse gap-2'>
-            <Button type='submit' color='success' disabled={req.load}>
-              {!req.load ? 'Check' : 'Checking...'}
+            <Button type='submit' color='success' disabled={reqEvent.isLoading}>
+              {!reqEvent.isLoading ? 'Check' : 'Checking...'}
             </Button>
-            <Button type='button' color='light' onClick={onCancel} disabled={req.load}>
+            <Button type='button' color='light' onClick={onCancel} disabled={reqEvent.isLoading}>
               Cancel
             </Button>
           </div>
