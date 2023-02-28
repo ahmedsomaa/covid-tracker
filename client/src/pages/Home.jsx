@@ -7,7 +7,7 @@ import Redirect from '../components/Redirect';
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 
 function HomePage() {
-  const { isLoading, data, error } = useUser();
+  const { loading, data, error } = useUser();
 
   if (error) {
     return (
@@ -19,7 +19,7 @@ function HomePage() {
     );
   }
 
-  if (isLoading) {
+  if (loading) {
     return <Redirect message='Please, wait will redirect you in seconds' />;
   }
 
