@@ -19,7 +19,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.1",
     "react-simple-maps": "^3.0.0",
-    "react-tooltip": "^5.8.3"
+    "react-tooltip": "^5.8.3",
+    "universal-cookie": "^4.0.4"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
