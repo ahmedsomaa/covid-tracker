@@ -6,8 +6,8 @@ import config from './config';
 import express from 'express';
 import routes from './routes';
 import compression from 'compression';
-import errorHandler from './middleware/error';
 import { logger } from './middleware/logger';
+import errorHandler from './middleware/error';
 
 // create the app instance
 const app = express();
@@ -20,12 +20,7 @@ app.use(morgan('common'));
 app.use(helmet());
 
 // cors
-app.use(
-  cors({
-    origin: config.cors,
-    methods: ['GET', 'POST']
-  })
-);
+app.use(cors());
 
 // use compression to compress all responses
 app.use(compression());
