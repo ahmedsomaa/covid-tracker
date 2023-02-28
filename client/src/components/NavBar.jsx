@@ -4,20 +4,28 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-export default function NavBar({ user }) {
-  const cookies = new Cookies();
+// ------ cookies object
+const cookies = new Cookies();
+
+export default function NavBar({}) {
   const { logout } = useAuth0();
   const location = useLocation();
   const navigate = useNavigate();
 
-  // ------ handlers
-  const isActive = (path) => (location.pathname === path ? 'font-black text-green-700 dark:text-green-900' : '');
+  // ------ current user info
+  const user = JSON.parse(localStorage.getItem('metadata'));
 
+  // ------ handlers
   const handleLogout = () => {
-    cookies.remove('jat');
+    cookies.remove('jwt');
+    localStorage.removeItem('metadata')
     logout();
   };
 
+  // ------ utilities
+  const isActive = (path) => (location.pathname === path ? 'font-black text-green-700 dark:text-green-900' : '');
+
+  // ------ handle normal state
   return (
     <Navbar fluid rounded className='py-5 border-b'>
       <div className='container flex flex-wrap items-center justify-between mx-auto'>
@@ -36,7 +44,7 @@ export default function NavBar({ user }) {
           >
             <Dropdown.Header>
               <span to='/app/profile' className='font-serif block text-sm text-gray-900 dark:text-white'>
-                {user?.user_metadata?.name}
+                {user?.user_metadata.name}
               </span>
               <span className='font-serif block text-sm font-medium text-gray-500 truncate dark:text-gray-400'>
                 {user?.email}
