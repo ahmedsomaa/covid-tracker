@@ -8,14 +8,14 @@ import 'react-tooltip/dist/react-tooltip.css';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { BrowserRouter, useNavigate } from 'react-router-dom';
 
-const { domain, audience, clientId, redirectUri } = config;
+const { scope, domain, audience, clientId, redirectUri } = config;
 
 const Auth0ProviderWithRouter = ({ children }) => {
   const navigate = useNavigate();
 
   const onRedirectCallback = (appState) => navigate(appState?.returnTo || window.location.pathname);
 
-  if (!(domain && clientId && redirectUri && audience)) {
+  if (!(domain && clientId && redirectUri && audience && scope)) {
     return null;
   }
 
@@ -27,7 +27,7 @@ const Auth0ProviderWithRouter = ({ children }) => {
       authorizationParams={{
         audience: audience,
         redirect_uri: redirectUri,
-        scope: 'read:current_user update:current_user_metadata'
+        scope: `${scope.read} ${scope.update}`
       }}
     >
       {children}
