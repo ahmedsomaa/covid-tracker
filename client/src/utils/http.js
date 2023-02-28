@@ -18,8 +18,8 @@ export default function httpClient(enpoint, { method, requestHeaders, body } = {
         return await response.json();
       } else {
         const error = await response.json();
-        return Promise.reject(new Error(error.message));
+        return Promise.reject(error.message);
       }
     })
-    .catch((err) => Promise.reject(new Error(err.message)));
+    .catch((err) => Promise.reject(err.message));
 }
