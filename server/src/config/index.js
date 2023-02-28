@@ -6,6 +6,7 @@ const {
   PORT,
   NODE_ENV,
   MONGO_USER,
+  CORS_ORIGIN,
   AUTH0_DOMAIN,
   MONGO_CLUSTER,
   MONGO_DATABASE,
@@ -15,6 +16,7 @@ const {
 
 export default {
   port: PORT,
+  cors: CORS_ORIGIN,
   env: NODE_ENV,
   auth0: {
     domain: AUTH0_DOMAIN,
