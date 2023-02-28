@@ -14,4 +14,4 @@ echo $VITE_AUTH0_UPDATE_API_SCOPE | vercel env add VITE_AUTH0_UPDATE_API_SCOPE p
 
 # deploy to project
 echo "Deploying client app"
-vercel deploy --token=$VERCEL_TOKEN --scope=$VERCEL_SCOPE --yes production 
+vercel deploy --token=$VERCEL_TOKEN --scope=$VERCEL_SCOPE --yes --prod 
