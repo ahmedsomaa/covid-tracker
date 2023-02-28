@@ -9,6 +9,7 @@ const {
   AUTH0_DOMAIN,
   MONGO_CLUSTER,
   MONGO_DATABASE,
+  AUTHO_API_SCOPE,
   AUTH0_API_AUDIENCE,
   MONGO_USER_PASSWORD
 } = process.env;
@@ -17,6 +18,7 @@ export default {
   port: PORT,
   env: NODE_ENV,
   auth0: {
+    scope: AUTHO_API_SCOPE.replaceAll(',', ' '),
     domain: AUTH0_DOMAIN,
     audience: AUTH0_API_AUDIENCE
   },
