@@ -32,7 +32,7 @@ export default function CovidMap({ data, geoUrl, setTooltipContent }) {
                     stroke='#475569'
                     className='map-tooltip'
                     onMouseEnter={() => {
-                      const message = record ? `: ${record.cases} infected cases out of ${record.total}` : '';
+                      const message = record ? `: ${record.cases} infected cases out of ${record.total} reported` : '';
                       setTooltipContent(`${geo.properties.name}${message}`);
                     }}
                     onMouseLeave={() => {
