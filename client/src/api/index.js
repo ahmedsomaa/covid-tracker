@@ -1,6 +1,9 @@
 import config from '../config';
+import Cookies from 'universal-cookie';
 import httpClient from '../utils/http';
 
+const cookies = new Cookies();
+const accessToken = cookies.get('jat');
 const AUTH0_BASE_URL = `https://${config.domain}/api/v2`;
 
 // ------ Users Endpoints
@@ -21,9 +24,18 @@ const updateCurrentUser = async (token, userId, user) =>
 
 // ------ Records Endpoints
 // GET /records
-const getAllRecords = () => httpClient(`${config.baseUrl}/records`, { method: 'GET' });
+const getAllRecords = () =>
+  httpClient(`${config.baseUrl}/records`, {
+    method: 'GET',
+    requestHeaders: { Authorization: `Bearer ${accessToken}` }
+  });
 
 // POST /patients
-const createRecord = (record) => httpClient(`${config.baseUrl}/records`, { method: 'POST', body: record });
+const createRecord = (record) =>
+  httpClient(`${config.baseUrl}/records`, {
+    body: record,
+    method: 'POST',
+    requestHeaders: { Authorization: `Bearer ${accessToken}` }
+  });
 
 export { getCurrentUser, updateCurrentUser, getAllRecords, createRecord };
