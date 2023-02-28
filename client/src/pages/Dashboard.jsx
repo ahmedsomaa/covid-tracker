@@ -1,6 +1,6 @@
 import React from 'react';
 import config from '../config';
-import { Card } from 'flowbite-react';
+import { Alert, Card } from 'flowbite-react';
 import { getAllRecords } from '../api';
 import CovidMap from '../components/CovidMap';
 import Redirect from '../components/Redirect';
@@ -26,7 +26,12 @@ export default function DashboardPage() {
   }, []);
 
   if (request.error) {
-    return <Navigate to='/' replace />;
+    return (
+      <>
+        <Title className='font-poppins'></Title>
+        <Alert color='failure'>{request.error}</Alert>
+      </>
+    );
   }
 
   if (request.isLoading) {
