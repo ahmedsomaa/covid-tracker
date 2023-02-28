@@ -1,15 +1,22 @@
 import React from 'react';
+import Cookies from 'universal-cookie';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 export default function NavBar({ user }) {
+  const cookies = new Cookies();
   const { logout } = useAuth0();
   const location = useLocation();
   const navigate = useNavigate();
 
   // ------ handlers
   const isActive = (path) => (location.pathname === path ? 'font-black text-green-700 dark:text-green-900' : '');
+
+  const handleLogout = () => {
+    cookies.remove('jat');
+    logout();
+  };
 
   return (
     <Navbar fluid rounded className='py-5 border-b'>
@@ -38,7 +45,7 @@ export default function NavBar({ user }) {
             <Dropdown.Item className='font-serif' onClick={() => navigate('/app/profile')}>
               Profile
             </Dropdown.Item>
-            <Dropdown.Item className='font-serif' onClick={() => logout()}>
+            <Dropdown.Item className='font-serif' onClick={handleLogout}>
               Sign out
             </Dropdown.Item>
           </Dropdown>
