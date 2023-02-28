@@ -64,6 +64,4 @@ See [images/screenshots](./images/screenshots/) for application screenshots.
 
 ## Demo
 
-https://user-images.githubusercontent.com/29373629/221384230-8defe063-e101-4a93-a513-fbe2d0c41fca.mp4
-
-
+https://user-images.githubusercontent.com/29373629/221850167-0a049318-41d0-430d-b1b4-65a447d412c4.mp4
