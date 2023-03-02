@@ -44,7 +44,7 @@ export default function NavBar({}) {
           >
             <Dropdown.Header>
               <span to='/app/profile' className='font-serif block text-sm text-gray-900 dark:text-white'>
-                {user?.user_metadata.name}
+                {user?.user_metadata?.name}
               </span>
               <span className='font-serif block text-sm font-medium text-gray-500 truncate dark:text-gray-400'>
                 {user?.email}
